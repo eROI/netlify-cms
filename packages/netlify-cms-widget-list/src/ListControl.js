@@ -184,10 +184,7 @@ export default class ListControl extends React.Component {
           ? this.getObjectValue(index).set(fieldName, newValue)
           : newValue;
       const parsedMetadata = {
-        [collectionName]: Object.assign(
-          metadata ? metadata.toJS() : {},
-          newMetadata ? newMetadata[collectionName] : {},
-        ),
+        [collectionName]: Object.assign(metadata ? metadata.toJS() : {}, newMetadata || {}),
       };
       onChange(value.set(index, newObjectValue), parsedMetadata);
     };
@@ -253,7 +250,7 @@ export default class ListControl extends React.Component {
   };
 
   renderItem = (item, index) => {
-    const { classNameWrapper, editorControl, resolveWidget } = this.props;
+    const { classNameWrapper, editorControl, resolveWidget, metadata } = this.props;
     const { itemsCollapsed } = this.state;
     const collapsed = itemsCollapsed.get(index);
     let field = this.props.field;
@@ -285,6 +282,7 @@ export default class ListControl extends React.Component {
           onChangeObject={this.handleChangeFor(index)}
           editorControl={editorControl}
           resolveWidget={resolveWidget}
+          metadata={metadata}
           forList
         />
       </SortableListItem>

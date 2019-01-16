@@ -47,7 +47,7 @@ export default class ObjectControl extends Component {
   }
 
   controlFor(field, key) {
-    const { value, onChangeObject, editorControl: EditorControl } = this.props;
+    const { value, onChangeObject, metadata, editorControl: EditorControl } = this.props;
 
     if (field.get('widget') === 'hidden') {
       return null;
@@ -55,7 +55,15 @@ export default class ObjectControl extends Component {
     const fieldName = field.get('name');
     const fieldValue = value && Map.isMap(value) ? value.get(fieldName) : value;
 
-    return <EditorControl key={key} field={field} value={fieldValue} onChange={onChangeObject} />;
+    return (
+      <EditorControl
+        key={key}
+        field={field}
+        value={fieldValue}
+        fieldsMetaData={metadata}
+        onChange={onChangeObject}
+      />
+    );
   }
 
   handleCollapseToggle = () => {
