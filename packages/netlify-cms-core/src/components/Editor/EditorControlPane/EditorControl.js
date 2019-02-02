@@ -138,6 +138,7 @@ class EditorControl extends React.Component {
     addAsset: PropTypes.func.isRequired,
     removeInsertedMedia: PropTypes.func.isRequired,
     onValidate: PropTypes.func,
+    onDeleteErrors: PropTypes.func,
     processControlRef: PropTypes.func,
     query: PropTypes.func.isRequired,
     queryHits: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
@@ -167,6 +168,7 @@ class EditorControl extends React.Component {
       addAsset,
       removeInsertedMedia,
       onValidate,
+      onDeleteErrors,
       processControlRef,
       query,
       queryHits,
@@ -179,8 +181,9 @@ class EditorControl extends React.Component {
     const fieldName = field.get('name');
     const fieldHint = field.get('hint');
     const isFieldOptional = field.get('required') === false;
+    const onValidateObject = onValidate;
     const metadata = fieldsMetaData && fieldsMetaData.get(fieldName);
-    const errors = fieldsErrors && fieldsErrors.get(fieldName);
+    const errors = fieldsErrors && fieldsErrors.get(this.uniqueFieldId);
     return (
       <ControlContainer>
         <ControlErrorsList>
@@ -220,7 +223,8 @@ class EditorControl extends React.Component {
           mediaPaths={mediaPaths}
           metadata={metadata}
           onChange={(newValue, newMetadata) => onChange(fieldName, newValue, newMetadata)}
-          onValidate={onValidate && partial(onValidate, fieldName)}
+          onValidate={onValidate && partial(onValidate, this.uniqueFieldId)}
+          onDeleteErrors={onDeleteErrors}
           onOpenMediaLibrary={openMediaLibrary}
           onClearMediaControl={clearMediaControl}
           onRemoveMediaControl={removeMediaControl}
@@ -232,12 +236,14 @@ class EditorControl extends React.Component {
           setInactiveStyle={() => this.setState({ styleActive: false })}
           resolveWidget={resolveWidget}
           getEditorComponents={getEditorComponents}
-          ref={processControlRef && partial(processControlRef, fieldName)}
+          ref={processControlRef && partial(processControlRef, field)}
           editorControl={ConnectedEditorControl}
           query={query}
           queryHits={queryHits}
           clearSearch={clearSearch}
           isFetching={isFetching}
+          fieldsErrors={fieldsErrors}
+          onValidateObject={onValidateObject}
           t={t}
         />
         {fieldHint && (
