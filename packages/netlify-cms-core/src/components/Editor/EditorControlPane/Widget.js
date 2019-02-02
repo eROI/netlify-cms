@@ -51,6 +51,7 @@ export default class Widget extends Component {
     queryHits: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     editorControl: PropTypes.func.isRequired,
     uniqueFieldId: PropTypes.string.isRequired,
+    loadEntry: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   };
 
@@ -228,6 +229,7 @@ export default class Widget extends Component {
       clearSearch,
       isFetching,
       fieldsErrors,
+      loadEntry,
       t,
     } = this.props;
     return React.createElement(controlComponent, {
@@ -263,6 +265,7 @@ export default class Widget extends Component {
       clearSearch,
       isFetching,
       fieldsErrors,
+      loadEntry,
       t,
     });
   }
