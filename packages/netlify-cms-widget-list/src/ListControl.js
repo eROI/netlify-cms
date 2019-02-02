@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import styled, { cx, css } from 'react-emotion';
 import { List, Map } from 'immutable';
-import { partial } from 'lodash';
+import { partial, uniq } from 'lodash';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { ObjectControl } from 'netlify-cms-widget-object';
 import {
@@ -68,10 +68,16 @@ const valueTypes = {
 };
 
 export default class ListControl extends React.Component {
+  validations = [];
+
+  listUniqueFieldIds = [];
+
   static propTypes = {
     metadata: ImmutablePropTypes.map,
     onChange: PropTypes.func.isRequired,
     onChangeObject: PropTypes.func.isRequired,
+    onValidateObject: PropTypes.func.isRequired,
+    onDeleteErrors: PropTypes.func.isRequired,
     value: ImmutablePropTypes.list,
     field: PropTypes.object,
     forID: PropTypes.string,
@@ -85,6 +91,7 @@ export default class ListControl extends React.Component {
     setInactiveStyle: PropTypes.func.isRequired,
     editorControl: PropTypes.func.isRequired,
     resolveWidget: PropTypes.func.isRequired,
+    fieldsErrors: ImmutablePropTypes.map.isRequired,
   };
 
   static defaultProps = {
@@ -168,6 +175,18 @@ export default class ListControl extends React.Component {
     onChange((value || List()).push(parsedValue));
   };
 
+  processObjectControlRef = ref => {
+    if (!ref) return;
+    this.validations.push(ref.validateObject);
+    this.listUniqueFieldIds.push(uniq(ref.objectUniqueFieldIds));
+  };
+
+  validateList = () => {
+    this.validations.forEach(validate => {
+      validate();
+    });
+  };
+
   /**
    * In case the `onChangeObject` function is frozen by a child widget implementation,
    * e.g. when debounced, always get the latest object value instead of using
@@ -196,16 +215,31 @@ export default class ListControl extends React.Component {
   handleRemove = (index, event) => {
     event.preventDefault();
     const { itemsCollapsed } = this.state;
-    const { value, metadata, onChange, field } = this.props;
+    const { value, metadata, onChange, field, onDeleteErrors } = this.props;
     const collectionName = field.get('name');
     const isSingleField = this.getValueType() === valueTypes.SINGLE;
 
     const metadataRemovePath = isSingleField ? value.get(index) : value.get(index).valueSeq();
     const parsedMetadata = metadata && { [collectionName]: metadata.removeIn(metadataRemovePath) };
 
+    // Removed item object index is the last item in the list
+    const removedItemIndex = value.count() - 1;
+
     this.setState({ itemsCollapsed: itemsCollapsed.delete(index) });
 
     onChange(value.remove(index), parsedMetadata);
+
+    // Remove deleted item object validation
+    if (this.validations) {
+      this.validations.splice(removedItemIndex, 1);
+    }
+
+    // Remove deleted item object unique field Ids from fieldsErrors Map() and from the
+    // list unique field ids array.
+    if (this.listUniqueFieldIds) {
+      onDeleteErrors(this.listUniqueFieldIds[removedItemIndex]);
+      this.listUniqueFieldIds.splice(removedItemIndex, 1);
+    }
   };
 
   handleItemCollapseToggle = (index, event) => {
@@ -253,7 +287,15 @@ export default class ListControl extends React.Component {
   };
 
   renderItem = (item, index) => {
-    const { classNameWrapper, editorControl, resolveWidget } = this.props;
+    const {
+      classNameWrapper,
+      editorControl,
+      onValidateObject,
+      onDeleteErrors,
+      fieldsErrors,
+      resolveWidget,
+    } = this.props;
+
     const { itemsCollapsed } = this.state;
     const collapsed = itemsCollapsed.get(index);
     let field = this.props.field;
@@ -286,6 +328,10 @@ export default class ListControl extends React.Component {
           editorControl={editorControl}
           resolveWidget={resolveWidget}
           forList
+          onValidateObject={onValidateObject}
+          onDeleteErrors={onDeleteErrors}
+          fieldsErrors={fieldsErrors}
+          ref={this.processObjectControlRef}
         />
       </SortableListItem>
     );
