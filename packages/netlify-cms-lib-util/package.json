@@ -1,9 +1,9 @@
 {
-  "name": "netlify-cms-lib-util",
+  "name": "@eroi/netlify-cms-lib-util",
   "description": "Shared utilities for Netlify CMS.",
   "version": "2.1.1",
-  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-lib-util",
-  "bugs": "https://github.com/netlify/netlify-cms/issues",
+  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-lib-util",
+  "bugs": "https://github.com/eROI/netlify-cms/issues",
   "main": "dist/netlify-cms-lib-util.js",
   "license": "MIT",
   "keywords": [

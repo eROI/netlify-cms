@@ -1,10 +1,10 @@
 {
-  "name": "netlify-cms-widget-object",
+  "name": "@eroi/netlify-cms-widget-object",
   "description": "Widget for displaying an object of fields for Netlify CMS.",
   "version": "2.0.5",
   "homepage": "https://www.netlifycms.org/docs/widgets/#object",
-  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-object",
-  "bugs": "https://github.com/netlify/netlify-cms/issues",
+  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-widget-object",
+  "bugs": "https://github.com/eROI/netlify-cms/issues",
   "main": "dist/netlify-cms-widget-object.js",
   "license": "MIT",
   "keywords": [

@@ -1,9 +1,9 @@
 {
-  "name": "netlify-cms-ui-default",
+  "name": "@eroi/netlify-cms-ui-default",
   "description": "Default UI components for Netlify CMS.",
   "version": "2.2.0",
-  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-ui-default",
-  "bugs": "https://github.com/netlify/netlify-cms/issues",
+  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-ui-default",
+  "bugs": "https://github.com/eROI/netlify-cms/issues",
   "license": "MIT",
   "main": "dist/netlify-cms-ui-default.js",
   "keywords": [
