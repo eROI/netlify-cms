@@ -1,9 +1,9 @@
 {
-  "name": "netlify-cms-editor-component-image",
+  "name": "@eroi/netlify-cms-editor-component-image",
   "description": "Image component for Netlify CMS editor widget",
   "version": "2.2.0",
-  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-editor-component-image",
-  "bugs": "https://github.com/netlify/netlify-cms/issues",
+  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-editor-component-image",
+  "bugs": "https://github.com/eROI/netlify-cms/issues",
   "main": "dist/netlify-cms-editor-component-image.js",
   "license": "MIT",
   "keywords": [

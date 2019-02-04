@@ -1,10 +1,10 @@
 {
-  "name": "netlify-cms-widget-relation",
+  "name": "@eroi/netlify-cms-widget-relation",
   "description": "Widget for linking related entries in Netlify CMS.",
   "version": "2.0.5",
   "homepage": "https://www.netlifycms.org/docs/widgets/#relation",
-  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-relation",
-  "bugs": "https://github.com/netlify/netlify-cms/issues",
+  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-widget-relation",
+  "bugs": "https://github.com/eROI/netlify-cms/issues",
   "main": "dist/netlify-cms-widget-relation.js",
   "license": "MIT",
   "keywords": [
