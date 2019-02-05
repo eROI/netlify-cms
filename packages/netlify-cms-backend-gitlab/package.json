@@ -1,9 +1,9 @@
 {
-  "name": "@eroi/netlify-cms-backend-gitlab",
+  "name": "netlify-cms-backend-gitlab",
   "description": "GitLab backend for Netlify CMS",
   "version": "2.1.1",
-  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab",
-  "bugs": "https://github.com/eROI/netlify-cms/issues",
+  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-gitlab",
+  "bugs": "https://github.com/netlify/netlify-cms/issues",
   "license": "MIT",
   "main": "dist/netlify-cms-backend-gitlab.js",
   "keywords": [

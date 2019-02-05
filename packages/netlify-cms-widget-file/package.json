@@ -1,10 +1,10 @@
 {
-  "name": "@eroi/netlify-cms-widget-file",
+  "name": "netlify-cms-widget-file",
   "description": "Widget for uploading files in Netlify CMS.",
   "version": "2.2.0",
   "homepage": "https://www.netlifycms.org/docs/widgets/#file",
-  "repository": "https://github.com/eROI/netlify-cms/tree/master/packages/netlify-cms-widget-file",
-  "bugs": "https://github.com/eROI/netlify-cms/issues",
+  "repository": "https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-widget-file",
+  "bugs": "https://github.com/netlify/netlify-cms/issues",
   "main": "dist/netlify-cms-widget-file.js",
   "license": "MIT",
   "keywords": [
